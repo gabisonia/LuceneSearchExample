@@ -62,7 +62,6 @@ namespace LuceneSearchExample.Services.Concrete
             foreach (var user in users)
             {
                 writer.UpdateDocument(new Term("id", user.UserId.ToString()), BuildDocument(user));
-
             }
             writer.Flush(true, true);
             writer.Commit();
