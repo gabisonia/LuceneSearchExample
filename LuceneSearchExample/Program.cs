@@ -10,7 +10,6 @@ namespace LuceneSearchExample
         static void Main(string[] args)
         {
             var searchService = new SearchService(@"D:\index");
-
             searchService.BuildIndex(new BuildIndexRequest()
             {
                 Users = new List<User>()
@@ -21,8 +20,6 @@ namespace LuceneSearchExample
                     new User { UserId =1 , Age = 28 , FirstName = "Tori", LastName = "Black" },
                 }
             });
-
-
             var searchRequest = new SearchRequest()
             {
                 Query = "Daniels"
