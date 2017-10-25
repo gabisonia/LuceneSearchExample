@@ -7,3 +7,9 @@ Clone this repo using `git clone https://github.com/Oposumi/LuceneSearchExample.
 
 
 Run Project
+
+
+Resources : 
+<br />
+
+http://myblogs.avisikta.com/understanding-lucene-net-analyzer-and-query-parser/
