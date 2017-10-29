@@ -33,22 +33,23 @@ namespace LuceneSearchExample.Services.Concrete
 
         private Analyzer SetupAnalyzer()
         {
-            return Analyzer.NewAnonymous((field, reader) =>
-            {
-                var tokenizer = new StandardTokenizer(MATCH_LUCENE_VERSION, reader);
-                TokenStream tokenStream = new StandardFilter(MATCH_LUCENE_VERSION, tokenizer);
-                tokenStream = new ASCIIFoldingFilter(tokenStream);
-                tokenStream = new LowerCaseFilter(MATCH_LUCENE_VERSION, tokenStream);
-                tokenStream = new StopFilter(MATCH_LUCENE_VERSION, tokenStream, StopAnalyzer.ENGLISH_STOP_WORDS_SET);
-                return new TokenStreamComponents(tokenizer, tokenStream);
-            });
+            return new StandardAnalyzer(MATCH_LUCENE_VERSION);
+            //return Analyzer.NewAnonymous((field, reader) =>
+            //{
+            //    var tokenizer = new StandardTokenizer(MATCH_LUCENE_VERSION, reader);
+            //    TokenStream tokenStream = new StandardFilter(MATCH_LUCENE_VERSION, tokenizer);
+            //    //tokenStream = new ASCIIFoldingFilter(tokenStream);
+            //    //tokenStream = new LowerCaseFilter(MATCH_LUCENE_VERSION, tokenStream);
+            //    //tokenStream = new StopFilter(MATCH_LUCENE_VERSION, tokenStream);
+            //    return new TokenStreamComponents(tokenizer, tokenStream);
+            //});
         }
 
         private QueryParser SetupQueryParser(Analyzer analyzer)
         {
             return new MultiFieldQueryParser(
                 MATCH_LUCENE_VERSION,
-                new[] { "firstname", "lastname", "age" },
+                new[] { "firstname", "lastname", "age", "userid" },            
                 analyzer
             );
         }
@@ -61,7 +62,7 @@ namespace LuceneSearchExample.Services.Concrete
             }
             foreach (var user in users)
             {
-                writer.UpdateDocument(new Term("id", user.UserId.ToString()), BuildDocument(user));
+                writer.UpdateDocument(new Term("userid", user.UserId.ToString()), BuildDocument(user));
             }
             writer.Flush(true, true);
             writer.Commit();
@@ -71,7 +72,7 @@ namespace LuceneSearchExample.Services.Concrete
         {
             Document doc = new Document
             {
-                new StoredField("userid", user.UserId),
+                new StringField("userid", user.UserId.ToString(),Field.Store.YES),
                 new TextField("firstname", user.FirstName, Field.Store.YES),
                 new TextField("lastname", user.LastName, Field.Store.YES),
                 new StringField("age", user.Age.ToString(), Field.Store.YES)
