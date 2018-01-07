@@ -2,7 +2,7 @@
 
 <b>Quick start</b>
 
-Clone this repo using `git clone https://github.com/Oposumi/LuceneSearchExample.git`
+Clone this repo using `git clone https://github.com/gabisonia/LuceneSearchExample.git`
 <br/>
 
 
