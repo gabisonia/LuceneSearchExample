@@ -8,7 +8,6 @@ Clone this repo using `git clone https://github.com/gabisonia/LuceneSearchExampl
 
 Run Project
 
-
 Resources : 
 <br />
 
